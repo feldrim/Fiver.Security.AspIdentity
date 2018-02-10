@@ -1,20 +1,20 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Fiver.Security.AspIdentity.Services.Email
 {
     public class EmailSender : IEmailSender
     {
-        private readonly ILogger logger;
+        private readonly ILogger _logger;
 
-        public EmailSender(ILogger<EmailSender> logger)
+        public EmailSender(ILogger logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            this.logger.LogInformation($"{message}");
+            _logger.LogInformation($"{message}");
             return Task.CompletedTask;
         }
     }

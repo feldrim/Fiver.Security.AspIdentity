@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Fiver.Security.AspIdentity.Services.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Fiver.Security.AspIdentity.Controllers
 {
@@ -19,7 +19,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         public IActionResult Index()
         {
-            var viewModel = this.userManager.Users.ToList();
+            var viewModel = userManager.Users.ToList();
             return View(viewModel);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Fiver.Security.AspIdentity.Services.Email;
+﻿using System;
+using Fiver.Security.AspIdentity.Services.Email;
 using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,28 +8,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Fiver.Security.AspIdentity
 {
     public class Startup
     {
-        private IConfiguration configuration;
+        private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(
             IServiceCollection services)
         {
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(configuration["DB_CONN"]));
+                options.UseSqlServer(_configuration["DB_CONN"]));
 
             services.AddIdentity<AppIdentityUser, AppIdentityRole>()
-                    .AddEntityFrameworkStores<AppIdentityDbContext>()
-                    .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -71,7 +71,7 @@ namespace Fiver.Security.AspIdentity
         }
 
         public void Configure(
-            IApplicationBuilder app, 
+            IApplicationBuilder app,
             IHostingEnvironment env)
         {
             if (env.IsDevelopment())

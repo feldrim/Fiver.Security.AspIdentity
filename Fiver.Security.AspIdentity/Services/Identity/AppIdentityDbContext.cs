@@ -5,8 +5,9 @@ namespace Fiver.Security.AspIdentity.Services.Identity
 {
     public class AppIdentityDbContext : IdentityDbContext<AppIdentityUser, AppIdentityRole, string>
     {
-        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
+        public AppIdentityDbContext(DbContextOptions options)
             : base(options)
-        { }
+        {
+        }
     }
 }

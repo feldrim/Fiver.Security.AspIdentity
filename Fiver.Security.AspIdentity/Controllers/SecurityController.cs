@@ -1,10 +1,10 @@
-﻿using Fiver.Security.AspIdentity.Models.Security;
+﻿using System;
+using System.Threading.Tasks;
+using Fiver.Security.AspIdentity.Models.Security;
 using Fiver.Security.AspIdentity.Services.Email;
 using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace Fiver.Security.AspIdentity.Controllers
 {
@@ -12,18 +12,18 @@ namespace Fiver.Security.AspIdentity.Controllers
     {
         #region " Fields & Constructor "
 
-        private readonly UserManager<AppIdentityUser> userManager;
-        private readonly SignInManager<AppIdentityUser> signInManager;
-        private readonly IEmailSender emailSender;
+        private readonly UserManager<AppIdentityUser> _userManager;
+        private readonly SignInManager<AppIdentityUser> _signInManager;
+        private readonly IEmailSender _emailSender;
 
         public SecurityController(
             UserManager<AppIdentityUser> userManager,
             SignInManager<AppIdentityUser> signInManager,
             IEmailSender emailSender)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.emailSender = emailSender;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._emailSender = emailSender;
         }
 
         #endregion
@@ -42,19 +42,17 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await this.userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null)
-            {
-                if (!await this.userManager.IsEmailConfirmedAsync(user))
+                if (!await _userManager.IsEmailConfirmedAsync(user))
                 {
                     ModelState.AddModelError(string.Empty,
-                              "Confirm your email please");
+                        "Confirm your email please");
                     return View(model);
                 }
-            }
 
-            var result = await this.signInManager.PasswordSignInAsync(
-                model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(
+                model.Username, model.Password, false, false);
 
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");
@@ -62,10 +60,10 @@ namespace Fiver.Security.AspIdentity.Controllers
             ModelState.AddModelError(string.Empty, "Login Failed");
             return View(model);
         }
-        
+
         public async Task<IActionResult> Logout()
         {
-            await this.signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -97,41 +95,41 @@ namespace Fiver.Security.AspIdentity.Controllers
                 Age = model.Age
             };
 
-            var result = await this.userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 //await this.signInManager.SignInAsync(user, isPersistent: false);
 
-                var confrimationCode = 
-                    await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confrimationCode =
+                    await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var callbackurl = Url.Action(
                     controller: "Security",
                     action: "ConfirmEmail",
-                    values: new { userId = user.Id, code = confrimationCode },
+                    values: new {userId = user.Id, code = confrimationCode},
                     protocol: Request.Scheme);
 
-                await this.emailSender.SendEmailAsync(
-                    email: user.Email,
-                    subject: "Confirm Email",
-                    message: callbackurl);
+                await _emailSender.SendEmailAsync(
+                    user.Email,
+                    "Confirm Email",
+                    callbackurl);
 
                 return RedirectToAction("Index", "Home");
             }
 
             return View(model);
         }
-        
+
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
                 return RedirectToAction("Index", "Home");
 
-            var user = await this.userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 
-            var result = await this.userManager.ConfirmEmailAsync(user, code);
+            var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
                 return View("ConfirmEmail");
 
@@ -154,26 +152,26 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (string.IsNullOrEmpty(email))
                 return View();
 
-            var user = await this.userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
                 return RedirectToAction("ForgotPasswordEmailSent");
 
-            if (!await this.userManager.IsEmailConfirmedAsync(user))
+            if (!await _userManager.IsEmailConfirmedAsync(user))
                 return RedirectToAction("ForgotPasswordEmailSent");
 
             var confrimationCode =
-                    await this.userManager.GeneratePasswordResetTokenAsync(user);
+                await _userManager.GeneratePasswordResetTokenAsync(user);
 
             var callbackurl = Url.Action(
                 controller: "Security",
                 action: "ResetPassword",
-                values: new { userId = user.Id, code = confrimationCode },
+                values: new {userId = user.Id, code = confrimationCode},
                 protocol: Request.Scheme);
 
-            await this.emailSender.SendEmailAsync(
-                email: user.Email,
-                subject: "Reset Password",
-                message: callbackurl);
+            await _emailSender.SendEmailAsync(
+                user.Email,
+                "Reset Password",
+                callbackurl);
 
             return RedirectToAction("ForgotPasswordEmailSent");
         }
@@ -192,7 +190,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (userId == null || code == null)
                 throw new ApplicationException("Code must be supplied for password reset.");
 
-            var model = new ResetPasswordViewModel { Code = code };
+            var model = new ResetPasswordViewModel {Code = code};
             return View(model);
         }
 
@@ -203,18 +201,18 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await this.userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
                 return RedirectToAction("ResetPasswordConfirm");
 
-            var result = await this.userManager.ResetPasswordAsync(
-                                        user, model.Code, model.Password);
+            var result = await _userManager.ResetPasswordAsync(
+                user, model.Code, model.Password);
             if (result.Succeeded)
                 return RedirectToAction("ResetPasswordConfirm");
 
             foreach (var error in result.Errors)
                 ModelState.AddModelError(string.Empty, error.Description);
-           
+
             return View(model);
         }
 
