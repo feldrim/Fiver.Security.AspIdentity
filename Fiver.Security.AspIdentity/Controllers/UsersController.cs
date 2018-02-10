@@ -9,17 +9,17 @@ namespace Fiver.Security.AspIdentity.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly UserManager<AppIdentityUser> userManager;
+        private readonly UserManager<AppIdentityUser> _userManager;
 
         public UsersController(
             UserManager<AppIdentityUser> userManager)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var viewModel = userManager.Users.ToList();
+            var viewModel = _userManager.Users.ToList();
             return View(viewModel);
         }
     }

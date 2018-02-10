@@ -7,7 +7,7 @@ namespace Fiver.Security.AspIdentity.Services.Email
     {
         private readonly ILogger _logger;
 
-        public EmailSender(ILogger logger)
+        public EmailSender(ILogger<EmailSender> logger)
         {
             _logger = logger;
         }
