@@ -159,13 +159,13 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (!await _userManager.IsEmailConfirmedAsync(user))
                 return RedirectToAction("ForgotPasswordEmailSent");
 
-            var confrimationCode =
+            var confirmationCode =
                 await _userManager.GeneratePasswordResetTokenAsync(user);
 
             var callbackurl = Url.Action(
                 controller: "Security",
                 action: "ResetPassword",
-                values: new {userId = user.Id, code = confrimationCode},
+                values: new {userId = user.Id, code = confirmationCode},
                 protocol: Request.Scheme);
 
             await _emailSender.SendEmailAsync(
