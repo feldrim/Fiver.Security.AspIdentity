@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,16 +11,14 @@ namespace Fiver.Security.AspIdentity.Controllers
     {
         private readonly RoleManager<AppIdentityRole> _roleManager;
 
-        public RoleController(RoleManager<AppIdentityRole> roleManager)
+        protected RoleController(RoleManager<AppIdentityRole> roleManager)
         {
             _roleManager = roleManager;
         }
 
-
         public IActionResult Index()
         {
             var vievModel = _roleManager.Roles.ToList();
-
             return View(vievModel);
         }
     }

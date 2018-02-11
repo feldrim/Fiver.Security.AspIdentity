@@ -1,21 +1,18 @@
-﻿@model List<Fiver.Security.AspIdentity.Services.Identity.AppIdentityRole>
-
-
-<h3>Roles</h3>
+﻿<h3>Roles</h3>
 
 <table>
     <thead>
-        <tr>
-            <th>Role name</th>
-        </tr>
+    <tr>
+        <th>Role name</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+        </tr>
+    }
     </tbody>
 </table>
 
