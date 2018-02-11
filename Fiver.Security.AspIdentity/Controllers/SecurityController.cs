@@ -13,7 +13,6 @@ namespace Fiver.Security.AspIdentity.Controllers
         #region " Fields & Constructor "
 
         private readonly UserManager<AppIdentityUser> _userManager;
-        private readonly RoleManager<AppIdentityRole> _roleManager;
         private readonly SignInManager<AppIdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
@@ -26,7 +25,6 @@ namespace Fiver.Security.AspIdentity.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _roleManager = roleManager;
         }
 
         #endregion
@@ -96,11 +94,12 @@ namespace Fiver.Security.AspIdentity.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
             };
-            
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 //await this.signInManager.SignInAsync(user, isPersistent: false);
+                await _userManager.AddToRoleAsync(user, "DefaultUser");
 
                 var confrimationCode =
                     await _userManager.GenerateEmailConfirmationTokenAsync(user);
