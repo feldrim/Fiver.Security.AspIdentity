@@ -26,6 +26,19 @@ namespace Fiver.Security.AspIdentity
                     Description = "At least one admin is needed.",
                     NormalizedName = "Admin".Normalize()
                 });
+                context.Roles.Add(new AppIdentityRole
+                {
+                    Name = "CompanyAdmin",
+                    Description = "An admin for managing company resources.",
+                    NormalizedName = "CompanyAdmin".Normalize()
+                });
+                context.Roles.Add(new AppIdentityRole
+                {
+                    Name = "DepartmentAdmin",
+                    Description = "An admin for managing department resources.",
+                    NormalizedName = "DepartmentAdmin".Normalize()
+                });
+                context.SaveChanges();
             }
 
             var users = context.Users;
