@@ -1,0 +1,19 @@
+﻿<h3>Roles</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Role name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+Go to <a asp-controller="Home" asp-action="Index">Home</a>
