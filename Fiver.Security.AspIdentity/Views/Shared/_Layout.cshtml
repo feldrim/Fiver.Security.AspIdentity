@@ -5,18 +5,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000" />
 
     <!-- Bootstrap CSS -->
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans">
     <link rel="stylesheet" href="/Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Assets/css/style.css">
-    <title>@ViewBag.Title</title>
+    <link rel="manifest" href="/manifest.json">
+    
+    <title>Shitty CRM</title>
 </head>
 <body>
     <div class="container" id="navbar">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">Shitty CRM</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,8 +62,39 @@
         </div>
     </div>
 
-    <div class="container" id="footer">
-
+    <div class="container" id="footer-with-copyright">
+        <footer class="footer">
+            <div class="container">
+                <hr class="my-auto">
+                <br />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm text-lg-right">
+                            <h3>Some Agency</h3>
+                            <h5>Some motto</h5>
+                        </div>
+                        <div class="col-sm-6">
+                            @* Empty column *@
+                        </div>
+                        <div class="col-sm">
+                            <address>
+                                <strong>Twitter, Inc.</strong><br>
+                                1355 Market St, Suite 900<br>
+                                San Francisco, CA 94103<br>
+                                <abbr title="Phone">P:</abbr> <a href="tel:123-456-7890">(123) 456-7890</a>
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row" id="copyright">
+                        <div class="col text-lg-center">
+                            <p>
+                                Copyright 2018 - Some Shitty Agency
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </div>
 
