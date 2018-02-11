@@ -1,0 +1,6 @@
+{  
+  "name": "Shitty CRM: A custom solution",  
+  "short_name": "ShittyCRM",  
+  "display": "standalone",  
+  "start_url": "/index.cshtml"  
+}
