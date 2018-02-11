@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fiver.Security.AspIdentity.Controllers
 {
     [Authorize]
-    public class UsersController : Controller
+    public class UserController : Controller
     {
         private readonly UserManager<AppIdentityUser> _userManager;
 
-        public UsersController(
+        public UserController(
             UserManager<AppIdentityUser> userManager)
         {
             _userManager = userManager;
