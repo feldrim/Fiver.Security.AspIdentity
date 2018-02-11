@@ -6,9 +6,7 @@ namespace Fiver.Security.AspIdentity.Models.Security
     {
         public string Code { get; set; }
 
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        [Required] public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
