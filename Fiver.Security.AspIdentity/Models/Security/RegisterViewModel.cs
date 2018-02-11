@@ -4,8 +4,7 @@ namespace Fiver.Security.AspIdentity.Models.Security
 {
     public class RegisterViewModel
     {
-        [Required]
-        public string UserName { get; set; }
+        [Required] public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

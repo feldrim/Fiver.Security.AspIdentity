@@ -47,7 +47,7 @@ namespace Fiver.Security.AspIdentity.Services.Email
                 Body = new TextPart("plain")
                 {
                     Text = body,
-                    ContentType = { Charset = "UTF-8" },
+                    ContentType = {Charset = "UTF-8"}
                 }
             };
             message.From.Add(new MailboxAddress("CRM", "z.f.blkn@gmail.com"));

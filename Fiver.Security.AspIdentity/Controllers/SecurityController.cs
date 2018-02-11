@@ -21,9 +21,9 @@ namespace Fiver.Security.AspIdentity.Controllers
             SignInManager<AppIdentityUser> signInManager,
             IEmailSender emailSender)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._emailSender = emailSender;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
         #endregion
