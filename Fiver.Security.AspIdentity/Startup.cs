@@ -79,7 +79,14 @@ namespace Fiver.Security.AspIdentity
             IHostingEnvironment env)
         {
             if (env.IsDevelopment())
+            {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.UseResponseCompression();
             app.UseAuthentication();
