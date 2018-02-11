@@ -3,14 +3,11 @@
 
 <h3>Users</h3>
 
-<table>
-    <thead>
+<table class="table">
+    <thead class="thead-inverse">
     <tr>
         <th>Username</th>
         <th>Email</th>
-        <th>Age</th>
-        <th>Fail.Count</th>
-        <th>Email Confirmed?</th>
     </tr>
     </thead>
     <tbody>
@@ -19,11 +16,7 @@
         <tr>
             <td>@item.UserName</td>
             <td>@item.Email</td>
-            <td>@item.AccessFailedCount</td>
-            <td>@item.EmailConfirmed</td>
         </tr>
     }
     </tbody>
 </table>
-
-Go to <a asp-controller="Home" asp-action="Index">Home</a>
