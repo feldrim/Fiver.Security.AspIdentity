@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ namespace Fiver.Security.AspIdentity.Controllers
     [Authorize]
     public class RoleController : Controller
     {
-        private readonly RoleManager<RoleController> _roleManager;
+        private readonly RoleManager<AppIdentityRole> _roleManager;
 
-        protected RoleController(RoleManager<RoleController> roleManager)
+        protected RoleController(RoleManager<AppIdentityRole> roleManager)
         {
             _roleManager = roleManager;
         }

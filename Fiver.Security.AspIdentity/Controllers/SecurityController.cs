@@ -13,17 +13,20 @@ namespace Fiver.Security.AspIdentity.Controllers
         #region " Fields & Constructor "
 
         private readonly UserManager<AppIdentityUser> _userManager;
+        private readonly RoleManager<AppIdentityRole> _roleManager;
         private readonly SignInManager<AppIdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public SecurityController(
             UserManager<AppIdentityUser> userManager,
             SignInManager<AppIdentityUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<AppIdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         #endregion
@@ -92,9 +95,8 @@ namespace Fiver.Security.AspIdentity.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Age = model.Age
             };
-
+            
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -106,7 +108,7 @@ namespace Fiver.Security.AspIdentity.Controllers
                 var callbackurl = Url.Action(
                     controller: "Security",
                     action: "ConfirmEmail",
-                    values: new {userId = user.Id, code = confrimationCode},
+                    values: new { userId = user.Id, code = confrimationCode },
                     protocol: Request.Scheme);
 
                 await _emailSender.SendEmailAsync(
@@ -165,7 +167,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             var callbackurl = Url.Action(
                 controller: "Security",
                 action: "ResetPassword",
-                values: new {userId = user.Id, code = confirmationCode},
+                values: new { userId = user.Id, code = confirmationCode },
                 protocol: Request.Scheme);
 
             await _emailSender.SendEmailAsync(
@@ -190,7 +192,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (userId == null || code == null)
                 throw new ApplicationException("Code must be supplied for password reset.");
 
-            var model = new ResetPasswordViewModel {Code = code};
+            var model = new ResetPasswordViewModel { Code = code };
             return View(model);
         }
 

@@ -17,7 +17,5 @@ namespace Fiver.Security.AspIdentity.Models.Security
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
-        public int Age { get; set; }
     }
 }
