@@ -101,19 +101,19 @@ namespace Fiver.Security.AspIdentity.Controllers
                 //await this.signInManager.SignInAsync(user, isPersistent: false);
                 await _userManager.AddToRoleAsync(user, "DefaultUser");
 
-                var confrimationCode =
-                    await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //var confrimationCode =
+                //    await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                var callbackurl = Url.Action(
-                    controller: "Security",
-                    action: "ConfirmEmail",
-                    values: new { userId = user.Id, code = confrimationCode },
-                    protocol: Request.Scheme);
+                //var callbackurl = Url.Action(
+                //    controller: "Security",
+                //    action: "ConfirmEmail",
+                //    values: new { userId = user.Id, code = confrimationCode },
+                //    protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    user.Email,
-                    "Confirm Email",
-                    callbackurl);
+                //await _emailSender.SendEmailAsync(
+                //    user.Email,
+                //    "Confirm Email",
+                //    callbackurl);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -160,19 +160,19 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (!await _userManager.IsEmailConfirmedAsync(user))
                 return RedirectToAction("ForgotPasswordEmailSent");
 
-            var confirmationCode =
-                await _userManager.GeneratePasswordResetTokenAsync(user);
+            //var confirmationCode =
+            //    await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackurl = Url.Action(
-                controller: "Security",
-                action: "ResetPassword",
-                values: new { userId = user.Id, code = confirmationCode },
-                protocol: Request.Scheme);
+            //var callbackurl = Url.Action(
+            //    controller: "Security",
+            //    action: "ResetPassword",
+            //    values: new { userId = user.Id, code = confirmationCode },
+            //    protocol: Request.Scheme);
 
-            await _emailSender.SendEmailAsync(
-                user.Email,
-                "Reset Password",
-                callbackurl);
+            //await _emailSender.SendEmailAsync(
+            //    user.Email,
+            //    "Reset Password",
+            //    callbackurl);
 
             return RedirectToAction("ForgotPasswordEmailSent");
         }
@@ -202,7 +202,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             if (user == null)
                 return RedirectToAction("ResetPasswordConfirm");
 

@@ -17,11 +17,9 @@ namespace Fiver.Security.AspIdentity.Services.Email
         public Task SendEmailAsync(string to, string subject, string body)
         {
             var message = CreateMessage(to, subject, body);
-
             var task = Task.Run(() => SendEmail(message));
 
             _logger.LogInformation($"{body}");
-            //return Task.CompletedTask;
             return task;
         }
 
