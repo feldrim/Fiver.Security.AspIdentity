@@ -12,25 +12,8 @@ namespace Fiver.Security.AspIdentity
     {
         public static void Main(string[] args)
         {
-            var webHost = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    var env = hostingContext.HostingEnvironment;
-                    config.AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
-                    config.AddEnvironmentVariables();
-                })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                })
-                .UseStartup<Startup>()
-                .Build();
-
+           var webHost = BuildWebHost(args);
+            
             using (var scope = webHost.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -46,8 +29,6 @@ namespace Fiver.Security.AspIdentity
             }
 
             webHost.Run();
-
-
         }
 
         public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
