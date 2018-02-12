@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Fiver.Security.AspIdentity.Services.Identity;
 
 namespace Fiver.Security.AspIdentity.Services.Identity
 {
@@ -9,5 +10,6 @@ namespace Fiver.Security.AspIdentity.Services.Identity
             : base(options)
         {
         }
+        public DbSet<Fiver.Security.AspIdentity.Services.Identity.AppIdentityUser> AppIdentityUser { get; set; }
     }
 }
