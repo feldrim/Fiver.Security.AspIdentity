@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Fiver.Security.AspIdentity.Models.Security;
 using Fiver.Security.AspIdentity.Services.Email;
 using Fiver.Security.AspIdentity.Services.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiver.Security.AspIdentity.Controllers
 {
+    [Authorize]
     public class SecurityController : Controller
     {
         #region " Fields & Constructor "
@@ -30,7 +32,8 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Login / Logout / Access Denied "
-
+        
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -38,6 +41,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -67,7 +71,8 @@ namespace Fiver.Security.AspIdentity.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
+        
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();
@@ -76,7 +81,8 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Register "
-
+        
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -84,6 +90,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -120,7 +127,8 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return View(model);
         }
-
+        
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -140,7 +148,8 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Forgot Password "
-
+        
+        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
@@ -148,6 +157,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -176,7 +186,8 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return RedirectToAction("ForgotPasswordEmailSent");
         }
-
+        
+        [AllowAnonymous]
         public IActionResult ForgotPasswordEmailSent()
         {
             return View();
@@ -185,7 +196,8 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Reset Password "
-
+        
+        [AllowAnonymous]
         public IActionResult ResetPassword(string userId, string code)
         {
             if (userId == null || code == null)
@@ -197,6 +209,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -216,7 +229,8 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return View(model);
         }
-
+        
+        [AllowAnonymous]
         public IActionResult ResetPasswordConfirm()
         {
             return View();
