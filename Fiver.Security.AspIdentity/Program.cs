@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -12,8 +10,8 @@ namespace Fiver.Security.AspIdentity
     {
         public static void Main(string[] args)
         {
-           var webHost = BuildWebHost(args);
-            
+            var webHost = BuildWebHost(args);
+
             using (var scope = webHost.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -31,8 +29,11 @@ namespace Fiver.Security.AspIdentity
             webHost.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .Build();
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .Build();
+        }
     }
 }

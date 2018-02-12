@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Compression;
 using Fiver.Security.AspIdentity.Services.Email;
 using Fiver.Security.AspIdentity.Services.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -70,7 +71,7 @@ namespace Fiver.Security.AspIdentity
 
             services.AddMvc();
 
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
             services.AddResponseCompression(options => options.EnableForHttps = true);
         }
 
@@ -89,6 +90,7 @@ namespace Fiver.Security.AspIdentity
                 app.UseStatusCodePagesWithRedirects("/Home/Error/{0}");
                 app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
             }
+
             app.UseResponseCompression();
             app.UseAuthentication();
             app.UseStaticFiles();

@@ -47,8 +47,9 @@ namespace Fiver.Security.AspIdentity
             {
                 var data = context.UserRoles.Find(user.Id, roleId);
                 if (data == null)
-                    context.UserRoles.Add(new IdentityUserRole<string> { RoleId = roleId, UserId = user.Id });
+                    context.UserRoles.Add(new IdentityUserRole<string> {RoleId = roleId, UserId = user.Id});
             }
+
             context.SaveChanges();
         }
     }

@@ -32,7 +32,7 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Login / Logout / Access Denied "
-        
+
         [AllowAnonymous]
         public IActionResult Login()
         {
@@ -71,7 +71,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        
+
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
@@ -81,7 +81,7 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Register "
-        
+
         [AllowAnonymous]
         public IActionResult Register()
         {
@@ -99,7 +99,7 @@ namespace Fiver.Security.AspIdentity.Controllers
             var user = new AppIdentityUser
             {
                 UserName = model.UserName,
-                Email = model.Email,
+                Email = model.Email
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -127,7 +127,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return View(model);
         }
-        
+
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
@@ -148,7 +148,7 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Forgot Password "
-        
+
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
@@ -186,7 +186,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return RedirectToAction("ForgotPasswordEmailSent");
         }
-        
+
         [AllowAnonymous]
         public IActionResult ForgotPasswordEmailSent()
         {
@@ -196,14 +196,14 @@ namespace Fiver.Security.AspIdentity.Controllers
         #endregion
 
         #region " Reset Password "
-        
+
         [AllowAnonymous]
         public IActionResult ResetPassword(string userId, string code)
         {
             if (userId == null || code == null)
                 throw new ApplicationException("Code must be supplied for password reset.");
 
-            var model = new ResetPasswordViewModel { Code = code };
+            var model = new ResetPasswordViewModel {Code = code};
             return View(model);
         }
 
@@ -229,7 +229,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
             return View(model);
         }
-        
+
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirm()
         {

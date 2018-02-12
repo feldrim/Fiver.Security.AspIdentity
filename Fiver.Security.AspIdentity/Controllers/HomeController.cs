@@ -13,7 +13,7 @@ namespace Fiver.Security.AspIdentity.Controllers
 
         public IActionResult Error()
         {
-            var viewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            var viewModel = new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier};
 
             return View(viewModel);
         }
