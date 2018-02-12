@@ -78,7 +78,7 @@ namespace Fiver.Security.AspIdentity
             IApplicationBuilder app,
             IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
@@ -86,8 +86,9 @@ namespace Fiver.Security.AspIdentity
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/Home/Error/{0}");
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
             }
-
             app.UseResponseCompression();
             app.UseAuthentication();
             app.UseStaticFiles();
