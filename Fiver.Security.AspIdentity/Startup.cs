@@ -79,7 +79,7 @@ namespace Fiver.Security.AspIdentity
             IApplicationBuilder app,
             IHostingEnvironment env)
         {
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
