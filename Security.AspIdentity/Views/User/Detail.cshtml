@@ -1,0 +1,28 @@
+﻿@using Security.AspIdentity.Models
+@model Security.AspIdentity.Models.AppIdentityUser
+
+<div class="card bg-light mb-3" style="max-width: 18rem;">
+    <div class="card-header">@Html.DisplayNameFor(model => model.UserName) : @Html.DisplayFor(model => model.UserName)</div>
+    <div class="card-body">
+        <h5 class="card-title">Details</h5>
+        <dl class="d-lg-table card-text">
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-outline-danger disabled">Delete</button>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-outline-dark" role="button" aria-pressed="true">Back to list</a>

@@ -1,0 +1,15 @@
+﻿@using Security.AspIdentity.ViewModel.Security
+@model Security.AspIdentity.ViewModel.Security.LoginViewModel
+
+<form asp-controller="Security" asp-action="Login" method="post">
+    <div class="form-row">
+        <div asp-validation-summary="All"></div>
+        <div class="col-3">
+            <input type="text" class="form-control" placeholder="Username" asp-for="Username">
+        </div>
+        <div class="col-3">
+            <input type="password" class="form-control" placeholder="Password" asp-for="Password">
+        </div>
+        <input type="submit" class="btn btn-outline-dark" value="Login"/>
+    </div>
+</form>
