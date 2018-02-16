@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Security.AspIdentity.Models
+namespace Security.AspIdentity.Models.Core
 {
-    public class AppIdentityRole : IdentityRole
+    public class CrmRole : IdentityRole
     {
         public string Description { get; set; }
     }

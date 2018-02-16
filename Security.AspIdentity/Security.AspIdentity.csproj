@@ -8,6 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180216095630_UpdatedBusinessAndPersonnel.cs" />
+    <Compile Remove="Migrations\20180216095630_UpdatedBusinessAndPersonnel.Designer.cs" />
+    <Compile Remove="Migrations\20180216101224_BusinessAndPersonnel.cs" />
+    <Compile Remove="Migrations\20180216101224_BusinessAndPersonnel.Designer.cs" />
+    <Compile Remove="Migrations\20180216101443_BusinessAndPersonnel.cs" />
+    <Compile Remove="Migrations\20180216101443_BusinessAndPersonnel.Designer.cs" />
+    <Compile Remove="Migrations\20180216112931_CrmModels1.cs" />
+    <Compile Remove="Migrations\20180216112931_CrmModels1.Designer.cs" />
+    <Compile Remove="Migrations\20180216114537_CrmModels1.cs" />
+    <Compile Remove="Migrations\20180216114537_CrmModels1.Designer.cs" />
+    <Compile Remove="Migrations\20180216115310_CrmModels1.cs" />
+    <Compile Remove="Migrations\20180216115310_CrmModels1.Designer.cs" />
+    <Compile Remove="Migrations\20180216115548_CrmModels1.cs" />
+    <Compile Remove="Migrations\20180216115548_CrmModels1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.1" />

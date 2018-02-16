@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Security.AspIdentity.Models;
+using Security.AspIdentity.Models.Core;
 
 namespace Security.AspIdentity.Controllers
 {
     [Authorize]
     public class UserController : Controller
     {
-        private readonly UserManager<AppIdentityUser> _userManager;
         private readonly ILogger<UserController> _logger;
+        private readonly UserManager<CrmUser> _userManager;
 
 
         public UserController(
-            UserManager<AppIdentityUser> userManager, ILogger<UserController> logger)
+            UserManager<CrmUser> userManager, ILogger<UserController> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -31,16 +31,10 @@ namespace Security.AspIdentity.Controllers
 
         public async Task<IActionResult> Detail(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound();
-            }
+            if (string.IsNullOrEmpty(id)) return NotFound();
 
             var user = await _userManager.Users.AsNoTracking().SingleAsync(u => u.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            if (user == null) return NotFound();
 
             return View(user);
         }
@@ -95,6 +89,5 @@ namespace Security.AspIdentity.Controllers
         //        return RedirectToAction(nameof(Delete), new { id, saveChangesError = true });
         //    }
         //}
-
     }
 }

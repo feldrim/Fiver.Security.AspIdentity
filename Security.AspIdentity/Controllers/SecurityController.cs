@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Security.AspIdentity.Core.Email;
-using Security.AspIdentity.Models;
+using Security.AspIdentity.Models.Core;
 using Security.AspIdentity.ViewModel.Security;
 
 namespace Security.AspIdentity.Controllers
@@ -14,15 +14,15 @@ namespace Security.AspIdentity.Controllers
     {
         #region " Fields & Constructor "
 
-        private readonly UserManager<AppIdentityUser> _userManager;
-        private readonly SignInManager<AppIdentityUser> _signInManager;
+        private readonly UserManager<CrmUser> _userManager;
+        private readonly SignInManager<CrmUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public SecurityController(
-            UserManager<AppIdentityUser> userManager,
-            SignInManager<AppIdentityUser> signInManager,
+            UserManager<CrmUser> userManager,
+            SignInManager<CrmUser> signInManager,
             IEmailSender emailSender,
-            RoleManager<AppIdentityRole> roleManager)
+            RoleManager<CrmRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -96,7 +96,7 @@ namespace Security.AspIdentity.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = new AppIdentityUser
+            var user = new CrmUser
             {
                 UserName = model.UserName,
                 Email = model.Email

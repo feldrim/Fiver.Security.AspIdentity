@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Security.AspIdentity.Core;
 using Security.AspIdentity.Core.Email;
-using Security.AspIdentity.Models;
+using Security.AspIdentity.Models.Core;
 
 namespace Security.AspIdentity
 {
@@ -29,7 +29,7 @@ namespace Security.AspIdentity
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(_configuration["DB_CONN"]));
 
-            services.AddIdentity<AppIdentityUser, AppIdentityRole>()
+            services.AddIdentity<CrmUser, CrmRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 

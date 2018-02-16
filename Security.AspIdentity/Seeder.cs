@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Security.AspIdentity.Core;
-using Security.AspIdentity.Models;
+using Security.AspIdentity.Models.Core;
 
 namespace Security.AspIdentity
 {
@@ -15,25 +15,25 @@ namespace Security.AspIdentity
             context.Database.EnsureCreated();
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new AppIdentityRole
+                context.Roles.Add(new CrmRole
                 {
                     Name = "DefaultUser",
                     Description = "Every user is a default user.",
                     NormalizedName = "DefaultUser".Normalize()
                 });
-                context.Roles.Add(new AppIdentityRole
+                context.Roles.Add(new CrmRole
                 {
                     Name = "Admin",
                     Description = "At least one admin is needed.",
                     NormalizedName = "Admin".Normalize()
                 });
-                context.Roles.Add(new AppIdentityRole
+                context.Roles.Add(new CrmRole
                 {
                     Name = "CompanyAdmin",
                     Description = "An admin for managing company resources.",
                     NormalizedName = "CompanyAdmin".Normalize()
                 });
-                context.Roles.Add(new AppIdentityRole
+                context.Roles.Add(new CrmRole
                 {
                     Name = "DepartmentAdmin",
                     Description = "An admin for managing department resources.",
