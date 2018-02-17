@@ -24,6 +24,7 @@ namespace Security.AspIdentity
             _userManager = serviceProvider.GetRequiredService<UserManager<CrmUser>>();
             _roleManager = serviceProvider.GetRequiredService<RoleManager<CrmRole>>();
             _context = serviceProvider.GetRequiredService<AppIdentityDbContext>();
+            _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
             Errors = new ArrayList();
 
@@ -119,7 +120,7 @@ namespace Security.AspIdentity
                 .RuleFor(u => u.UserName, f => f.Person.UserName)
                 .RuleFor(u => u.Email, f => f.Person.Email)
                 .RuleFor(u => u.EmailConfirmed, true)
-                .GenerateLazy(30);
+                .Generate(30);
 
             foreach (var user in fakeUsers)
             {
@@ -194,9 +195,13 @@ namespace Security.AspIdentity
             };
 
             // Add fake companies
-            list.AddRange(new Faker<CrmUnit>().RuleFor(c => c.Name, f => f.Company.CompanyName())
-                .RuleFor(c => c.Type, f => f.Company.CatchPhrase())
-                .RuleFor(c => c.Type, "Company").Generate(5));
+           var fakeUnits = new Faker<CrmUnit>()
+              .RuleFor(c => c.Name, f => f.Company.CompanyName())
+              .RuleFor(c => c.Description, f => f.Company.CatchPhrase())
+              .RuleFor(c => c.Type, "Company")
+              .Generate(5);
+
+           list.AddRange(fakeUnits);
 
             _context.CrmUnits.AddRange(list);
             _context.SaveChanges();
@@ -243,12 +248,12 @@ namespace Security.AspIdentity
             var fakeDepts =
                     new Faker<CrmUnit>()
                         .RuleFor(c => c.Name, f => f.PickRandom(depts))
-                        .RuleFor(c => c.Type, f => f.Company.CatchPhrase())
+                        .RuleFor(c => c.Description, f => f.Company.CatchPhrase())
                         .RuleFor(c => c.Type, "Department")
                         .Generate(30);
             foreach (var dept in fakeDepts)
             {
-                var random = new Random().Next(0, fakeDepts.Count);
+                var random = new Random().Next(0, fakeCompanies.Count);
                 dept.Parent = fakeCompanies[random];
                 dept.ParentId = dept.Parent.ParentId;
             }
