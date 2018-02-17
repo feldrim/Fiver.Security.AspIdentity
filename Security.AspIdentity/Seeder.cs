@@ -27,9 +27,6 @@ namespace Security.AspIdentity
             _context.Database.EnsureCreated();
             Errors = new ArrayList();
 
-            Randomizer.Seed = new Random(8675309);
-
-
             // Add identity data
             AddRoles();
             AddUsers();
@@ -39,6 +36,8 @@ namespace Security.AspIdentity
             AddCompany();
             AddDepartments();
             AddTitles();
+
+            DumpErrors();
         }
 
         private static void AddRoles()
@@ -115,6 +114,7 @@ namespace Security.AspIdentity
             }
 
             // Add fake users
+            // FIX: I cannot add users!
             var fakeUsers = new Faker<CrmUser>()
                 .RuleFor(u => u.UserName, f => f.Person.UserName)
                 .RuleFor(u => u.Email, f => f.Person.Email)
@@ -131,6 +131,7 @@ namespace Security.AspIdentity
 
         private static void AddPersonnel()
         {
+            //MAGIC NUMBER: 3 is the number of hand-coded users and connected personnel.
             var users = _context.AppIdentityUser.ToList();
             if (users.Count > 3) return;
 
@@ -156,10 +157,11 @@ namespace Security.AspIdentity
                     LastName = "user"
                 }
             };
-            
+
             _context.CrmPersonnel.AddRange(list);
             _context.SaveChanges();
-            if(users.Count == 3) return;
+
+            if (users.Count == 3) return;
 
             // Create fake personnel
             var fakePersonnel = new Faker<CrmPersonnel>()
@@ -261,19 +263,19 @@ namespace Security.AspIdentity
 
             var list = new List<CrmTitle>
             {
-                new CrmTitle()
+                new CrmTitle
                 {
                     Title = "Demo Title",
                     Subtitle = "...",
                     Description = "..."
                 },
-                new CrmTitle()
+                new CrmTitle
                 {
                     Title = "Admin Title",
                     Subtitle = "...",
                     Description = "..."
                 },
-                new CrmTitle()
+                new CrmTitle
                 {
                     Title = "User Title",
                     Subtitle = "...",
@@ -297,6 +299,13 @@ namespace Security.AspIdentity
         private static void AddErrors<T>(T error) where T : class
         {
             Errors.Add(error);
+        }
+        private static void DumpErrors()
+        {
+            foreach (var error in Errors)
+            {
+                Console.WriteLine(error);
+            }
         }
     }
 }
