@@ -50,22 +50,22 @@ namespace Security.AspIdentity
                 new CrmRole
                 {
                     Name = "DefaultUser",
-                    Description = "Every user is a default user.",
+                    Description = "Every user is a default user."
                 },
                 new CrmRole
                 {
                     Name = "Admin",
-                    Description = "At least one admin is needed.",
+                    Description = "At least one admin is needed."
                 },
                 new CrmRole
                 {
                     Name = "PermissionManager",
-                    Description = "A user role for managing user/role permissions.",
+                    Description = "A user role for managing user/role permissions."
                 },
                 new CrmRole
                 {
                     Name = "PersonnelManager",
-                    Description = "A user role for adding, modifying and deleting personnel.",
+                    Description = "A user role for adding, modifying and deleting personnel."
                 }
             };
 
@@ -74,8 +74,6 @@ namespace Security.AspIdentity
                 var result = _roleManager.CreateAsync(role).Result;
                 if (!result.Succeeded) AddErrors(result);
             }
-
-
         }
 
         private static void AddUsers()
@@ -90,7 +88,7 @@ namespace Security.AspIdentity
                     UserName = "demo",
                     Email = "demo@shitty.com",
                     EmailConfirmed = true,
-                    LockoutEnabled = false,
+                    LockoutEnabled = false
                 },
                 new CrmUser
                 {
@@ -127,7 +125,6 @@ namespace Security.AspIdentity
                 var result = _userManager.CreateAsync(user, $"{user.UserName}+000").Result;
                 if (!result.Succeeded) AddErrors(result);
             }
-
         }
 
         private static void AddPersonnel()
@@ -195,13 +192,13 @@ namespace Security.AspIdentity
             };
 
             // Add fake companies
-           var fakeUnits = new Faker<CrmUnit>()
-              .RuleFor(c => c.Name, f => f.Company.CompanyName())
-              .RuleFor(c => c.Description, f => f.Company.CatchPhrase())
-              .RuleFor(c => c.Type, "Company")
-              .Generate(5);
+            var fakeUnits = new Faker<CrmUnit>()
+               .RuleFor(c => c.Name, f => f.Company.CompanyName())
+               .RuleFor(c => c.Description, f => f.Company.CatchPhrase())
+               .RuleFor(c => c.Type, "Company")
+               .Generate(5);
 
-           list.AddRange(fakeUnits);
+            list.AddRange(fakeUnits);
 
             _context.CrmUnits.AddRange(list);
             _context.SaveChanges();
@@ -239,7 +236,6 @@ namespace Security.AspIdentity
                     Description = "Sweats te shit outta their ass",
                     Parent = companies.FirstOrDefault( p=> p.Name == "Shitty Agency")
                 }
-
             };
 
             // Add fake departments
