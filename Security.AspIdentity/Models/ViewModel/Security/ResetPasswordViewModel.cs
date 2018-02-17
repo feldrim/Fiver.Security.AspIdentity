@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Security.AspIdentity.ViewModel.Security
+namespace Security.AspIdentity.Models.ViewModel.Security
 {
     public class ResetPasswordViewModel
     {

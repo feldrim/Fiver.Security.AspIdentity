@@ -1,4 +1,4 @@
-﻿namespace Security.AspIdentity.ViewModel
+﻿namespace Security.AspIdentity.Models.ViewModel
 {
     public class ErrorViewModel
     {

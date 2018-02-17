@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Security.AspIdentity.ViewModel;
+using Security.AspIdentity.Models.ViewModel;
 
 namespace Security.AspIdentity.Controllers
 {

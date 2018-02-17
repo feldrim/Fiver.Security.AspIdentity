@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Security.AspIdentity.Core.Email;
 using Security.AspIdentity.Models.Core;
-using Security.AspIdentity.ViewModel.Security;
+using Security.AspIdentity.Models.ViewModel.Security;
 
 namespace Security.AspIdentity.Controllers
 {
