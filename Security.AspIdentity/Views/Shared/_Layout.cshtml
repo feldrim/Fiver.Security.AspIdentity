@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#000000"/>
 
     <!-- Bootstrap CSS -->
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
@@ -18,92 +18,92 @@
     <title>Shitty CRM</title>
 </head>
 <body>
-    <div class="container" id="navbar">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Shitty CRM</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+<div class="container" id="navbar">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Shitty CRM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
 
-                    @if (Context.User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <span class="navbar-text">@Context.User.Identity.Name</span>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Security" asp-action="Logout" class="nav-link">Logout</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Security" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Security" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Security" asp-action="ForgotPassword">Forgot password?</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nav>
-    </div>
-
-    <div class="container" id="body">
-        <div class="jumbotron">
-            <h1 class="display-4">Shitty CRM</h1>
-            <p class="lead">This is a simple shitty attempt for custom CRM solutions.</p>
-            <hr class="my-4">
-            @RenderBody()
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <span class="navbar-text">@Context.User.Identity.Name</span>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Security" asp-action="Logout" class="nav-link">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Security" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Security" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Security" asp-action="ForgotPassword">Forgot password?</a>
+                    </li>
+                }
+            </ul>
         </div>
-    </div>
+    </nav>
+</div>
 
-    <div class="container" id="footer-with-copyright">
-        <footer class="footer">
+<div class="container" id="body">
+    <div class="jumbotron">
+        <h1 class="display-4">Shitty CRM</h1>
+        <p class="lead">This is a simple shitty attempt for custom CRM solutions.</p>
+        <hr class="my-4">
+        @RenderBody()
+    </div>
+</div>
+
+<div class="container" id="footer-with-copyright">
+    <footer class="footer">
+        <div class="container">
+            <hr class="my-auto">
+            <br/>
             <div class="container">
-                <hr class="my-auto">
-                <br />
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm text-lg-right">
-                            <h3>Some Agency</h3>
-                            <h5>Some motto</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            @* Empty column *@
-                        </div>
-                        <div class="col-sm">
-                            <address>
-                                <strong>Twitter, Inc.</strong><br>
-                                1355 Market St, Suite 900<br>
-                                San Francisco, CA 94103<br>
-                                <abbr title="Phone">P:</abbr> <a href="tel:123-456-7890">(123) 456-7890</a>
-                            </address>
-                        </div>
+                <div class="row">
+                    <div class="col-sm text-lg-right">
+                        <h3>Some Agency</h3>
+                        <h5>Some motto</h5>
                     </div>
-                    <div class="row" id="copyright">
-                        <div class="col text-lg-center">
-                            <p>
-                                Copyright 2018 - Some Shitty Agency
-                            </p>
-                        </div>
+                    <div class="col-sm-6">
+                        @* Empty column *@
+                    </div>
+                    <div class="col-sm">
+                        <address>
+                            <strong>Twitter, Inc.</strong><br>
+                            1355 Market St, Suite 900<br>
+                            San Francisco, CA 94103<br>
+                            <abbr title="Phone">P:</abbr> <a href="tel:123-456-7890">(123) 456-7890</a>
+                        </address>
+                    </div>
+                </div>
+                <div class="row" id="copyright">
+                    <div class="col text-lg-center">
+                        <p>
+                            Copyright 2018 - Some Shitty Agency
+                        </p>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-    </div>
+</div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="/Assets/js/bootstrap.min.js"></script>
-    @RenderSection("scripts", required: false)
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="/Assets/js/bootstrap.min.js"></script>
+@RenderSection("Scripts", false)
 </body>
 </html>
 
