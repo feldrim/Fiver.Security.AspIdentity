@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Security.AspIdentity.Models.Core;
 
 namespace Security.AspIdentity.Controllers
 {
+    [Authorize]
     public class CrmRoleController : Controller
     {
         private readonly RoleManager<CrmRole> _roleManager;
@@ -46,7 +48,7 @@ namespace Security.AspIdentity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Description,Id,Name,NormalizedName,ConcurrencyStamp")]
+        public async Task<IActionResult> Create([Bind("Description,Id,Name")]
             CrmRole crmRole)
         {
             if (!ModelState.IsValid) return View(crmRole);

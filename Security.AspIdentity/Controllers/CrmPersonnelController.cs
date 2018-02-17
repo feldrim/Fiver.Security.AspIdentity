@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Security.AspIdentity.Core;
@@ -7,6 +8,7 @@ using Security.AspIdentity.Models.Business;
 
 namespace Security.AspIdentity.Controllers
 {
+    [Authorize]
     public class CrmPersonnelController : Controller
     {
         private readonly AppIdentityDbContext _context;
