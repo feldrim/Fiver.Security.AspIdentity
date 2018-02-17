@@ -61,7 +61,7 @@ namespace Security.AspIdentity
                 {
                     //Domain = "",
                     HttpOnly = true,
-                    Name = ".Security.Cookie",
+                    Name = "Security.Cookie",
                     Path = "/",
                     SameSite = SameSiteMode.Lax,
                     SecurePolicy = CookieSecurePolicy.SameAsRequest
@@ -84,6 +84,7 @@ namespace Security.AspIdentity
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
