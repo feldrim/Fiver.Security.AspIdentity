@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Security.AspIdentity.Models.Business
 {
     public class CrmUnit
     {
-        public string Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Busines unit name cannot be longer than 50 characters.")]
@@ -22,7 +26,7 @@ namespace Security.AspIdentity.Models.Business
         [Display(Name = "Business Unit Description")]
         public string Description { get; set; }
 
-        public string ParentId { get; set; }
+        public Guid ParentId { get; set; }
 
         [Display(Name = "Parent Business Unit")]
         public virtual CrmUnit Parent { get; set; }
