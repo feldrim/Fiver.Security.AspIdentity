@@ -114,17 +114,17 @@ namespace Security.AspIdentity
 
             // Add fake users
             // FIX: I cannot add users!
-            var fakeUsers = new Faker<CrmUser>()
-                .RuleFor(u => u.UserName, f => f.Person.UserName)
-                .RuleFor(u => u.Email, f => f.Person.Email)
-                .RuleFor(u => u.EmailConfirmed, true)
-                .Generate(30);
+            //var fakeUsers = new Faker<CrmUser>()
+            //    .RuleFor(u => u.UserName, f => f.Person.UserName)
+            //    .RuleFor(u => u.Email, f => f.Person.Email)
+            //    .RuleFor(u => u.EmailConfirmed, true)
+            //    .Generate(30);
 
-            foreach (var user in fakeUsers)
-            {
-                var result = _userManager.CreateAsync(user, $"{user.UserName}+000").Result;
-                if (!result.Succeeded) AddErrors(result);
-            }
+            //foreach (var user in fakeUsers)
+            //{
+            //    var result = _userManager.CreateAsync(user, $"{user.UserName}+000").Result;
+            //    if (!result.Succeeded) AddErrors(result);
+            //}
         }
 
         private static void AddPersonnel()
@@ -159,21 +159,22 @@ namespace Security.AspIdentity
             _context.CrmPersonnel.AddRange(list);
             _context.SaveChanges();
 
-            if (users.Count == 3) return;
-
-            // Create fake personnel
-            var fakePersonnel = new Faker<CrmPersonnel>()
-                .RuleFor(u => u.FirstName, f => f.Person.FirstName)
-                .RuleFor(u => u.LastName, f => f.Person.LastName)
-                .Generate(30);
-
-            for (var i = list.Count; i < fakePersonnel.Count; i++)
+            if (users.Count != 3)
             {
-                fakePersonnel[i].UserData = users[i];
-            }
+                // Create fake personnel
+                var fakePersonnel = new Faker<CrmPersonnel>()
+                    .RuleFor(u => u.FirstName, f => f.Person.FirstName)
+                    .RuleFor(u => u.LastName, f => f.Person.LastName)
+                    .Generate(30);
 
-            _context.CrmPersonnel.AddRange(fakePersonnel);
-            _context.SaveChanges();
+                for (var i = list.Count; i < fakePersonnel.Count; i++)
+                {
+                    fakePersonnel[i].UserData = users[i];
+                }
+
+                _context.CrmPersonnel.AddRange(fakePersonnel);
+                _context.SaveChanges();
+            }
         }
 
         private static void AddCompany()
