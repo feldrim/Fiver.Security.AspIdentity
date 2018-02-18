@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +26,14 @@ namespace Security.AspIdentity.Controllers
         }
 
         // GET: CrmPersonnel/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return NotFound();
 
             var crmPersonnel = await _context.CrmPersonnel
+                .Include(x => x.UserData)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (crmPersonnel == null) return NotFound();
 
             return View(crmPersonnel);
@@ -57,7 +60,7 @@ namespace Security.AspIdentity.Controllers
         }
 
         // GET: CrmPersonnel/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null) return NotFound();
 
@@ -71,7 +74,7 @@ namespace Security.AspIdentity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName")] CrmPersonnel crmPersonnel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName")] CrmPersonnel crmPersonnel)
         {
             if (id != crmPersonnel.Id) return NotFound();
 
@@ -93,7 +96,7 @@ namespace Security.AspIdentity.Controllers
         }
 
         // GET: CrmPersonnel/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return NotFound();
 
@@ -108,7 +111,7 @@ namespace Security.AspIdentity.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var crmPersonnel = await _context.CrmPersonnel.SingleOrDefaultAsync(m => m.Id == id);
             _context.CrmPersonnel.Remove(crmPersonnel);
@@ -116,7 +119,7 @@ namespace Security.AspIdentity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CrmPersonnelExists(int id)
+        private bool CrmPersonnelExists(Guid id)
         {
             return _context.CrmPersonnel.Any(e => e.Id == id);
         }
