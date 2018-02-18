@@ -43,8 +43,6 @@ namespace Security.AspIdentity
 
         private static void AddRoles()
         {
-            if (_context.Roles.Any()) return;
-
             var roles = new List<CrmRole>
             {
                 new CrmRole
@@ -78,8 +76,6 @@ namespace Security.AspIdentity
 
         private static void AddUsers()
         {
-            if (_context.AppIdentityUser.Any()) return;
-
             // Create with demo users
             var users = new List<CrmUser>
             {
@@ -131,7 +127,6 @@ namespace Security.AspIdentity
         {
             //MAGIC NUMBER: 3 is the number of hand-coded users and connected personnel.
             var users = _context.AppIdentityUser.ToList();
-            if (users.Count > 3) return;
 
             // Start with demo personnel 
             var list = new List<CrmPersonnel>
@@ -159,6 +154,7 @@ namespace Security.AspIdentity
             _context.CrmPersonnel.AddRange(list);
             _context.SaveChanges();
 
+            //TODO: Delete this line after solving user creation problem 
             if (users.Count == 3) return;
 
             // Create fake personnel
@@ -178,8 +174,6 @@ namespace Security.AspIdentity
 
         private static void AddCompany()
         {
-            if (_context.CrmUnits.Any(u => u.Type.Equals("Company"))) return;
-
             // Start with demo company
             var list = new List<CrmUnit>
             {
@@ -206,10 +200,7 @@ namespace Security.AspIdentity
 
         private static void AddDepartments()
         {
-            var units = _context.CrmUnits.ToList();
-            if (units.Any(u => u.Type.Equals("Department"))) return;
-
-            var companies = units.Where(u => u.Type.Equals("Company")).ToList();
+            var companies = _context.CrmUnits.Where(u => u.Type.Equals("Company")).ToList();
             var fakeCompanies = companies.Where(c => !c.Name.Equals("Shitty Company")).ToList();
 
             // Start with demo departments
@@ -260,8 +251,6 @@ namespace Security.AspIdentity
 
         private static void AddTitles()
         {
-            if (_context.CrmTitles.Any()) return;
-
             var list = new List<CrmTitle>
             {
                 new CrmTitle
@@ -301,6 +290,7 @@ namespace Security.AspIdentity
         {
             Errors.Add(error);
         }
+
         private static void DumpErrors()
         {
             foreach (var error in Errors)
