@@ -32,6 +32,7 @@ namespace Security.AspIdentity.Controllers
 
             var crmPersonnel = await _context.CrmPersonnel
                 .Include(x => x.UserData)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (crmPersonnel == null) return NotFound();
@@ -56,7 +57,6 @@ namespace Security.AspIdentity.Controllers
             _context.Add(crmPersonnel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: CrmPersonnel/Edit/5
@@ -64,7 +64,10 @@ namespace Security.AspIdentity.Controllers
         {
             if (id == null) return NotFound();
 
-            var crmPersonnel = await _context.CrmPersonnel.SingleOrDefaultAsync(m => m.Id == id);
+            var crmPersonnel = await _context.CrmPersonnel
+                .Include(x => x.UserData)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (crmPersonnel == null) return NotFound();
             return View(crmPersonnel);
         }
@@ -92,7 +95,6 @@ namespace Security.AspIdentity.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: CrmPersonnel/Delete/5
@@ -101,6 +103,8 @@ namespace Security.AspIdentity.Controllers
             if (id == null) return NotFound();
 
             var crmPersonnel = await _context.CrmPersonnel
+                .Include(x => x.UserData)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (crmPersonnel == null) return NotFound();
 
@@ -113,7 +117,10 @@ namespace Security.AspIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var crmPersonnel = await _context.CrmPersonnel.SingleOrDefaultAsync(m => m.Id == id);
+            var crmPersonnel = await _context.CrmPersonnel
+                .Include(x => x.UserData)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.Id == id);
             _context.CrmPersonnel.Remove(crmPersonnel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
