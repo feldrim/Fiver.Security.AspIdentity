@@ -129,7 +129,7 @@ namespace Security.AspIdentity.Migrations
 
             modelBuilder.Entity("Security.AspIdentity.Models.Business.CrmTitle", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
@@ -137,6 +137,8 @@ namespace Security.AspIdentity.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("ParentId");
+
+                    b.Property<Guid?>("ParentId1");
 
                     b.Property<string>("Subtitle")
                         .HasMaxLength(50);
@@ -147,7 +149,7 @@ namespace Security.AspIdentity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("ParentId1");
 
                     b.ToTable("CrmTitles");
                 });
@@ -159,8 +161,7 @@ namespace Security.AspIdentity.Migrations
 
                     b.Property<Guid>("PersonnelId");
 
-                    b.Property<string>("TitleId")
-                        .IsRequired();
+                    b.Property<Guid>("TitleId");
 
                     b.HasKey("Id");
 
@@ -179,8 +180,7 @@ namespace Security.AspIdentity.Migrations
                     b.Property<string>("RoleId")
                         .IsRequired();
 
-                    b.Property<string>("TitleId")
-                        .IsRequired();
+                    b.Property<Guid>("TitleId");
 
                     b.HasKey("Id");
 
@@ -222,8 +222,7 @@ namespace Security.AspIdentity.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("TitleId")
-                        .IsRequired();
+                    b.Property<Guid>("TitleId");
 
                     b.Property<string>("UnitId")
                         .IsRequired();
@@ -371,7 +370,7 @@ namespace Security.AspIdentity.Migrations
                 {
                     b.HasOne("Security.AspIdentity.Models.Business.CrmTitle", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId1");
                 });
 
             modelBuilder.Entity("Security.AspIdentity.Models.Business.CrmTitlePersonnel", b =>
